@@ -24,12 +24,15 @@ def pingalaSequencer(n):
     pingalaSequence = []
     while(n):
         if(n==0):
+            print("N is 0; record 0")
             pingalaSequence.append(0)
             break
         elif(checkParity(n)==0):
+            print("%d is even; record 2 and halve" % n)
             n = halve(n)
             pingalaSequence.append(2)
         else:
+            print("%d is odd; record 0 and subtract 1" % n)
             n = subtractOne(n)
             pingalaSequence.append(0)
     pingalaSequence.reverse()
