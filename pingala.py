@@ -1,4 +1,4 @@
-# G.E. Ranieri
+# Max Ranieri
 #
 # Pingala algorithm for 2^n
 # Based on Pingala's algorithm from Chandahsutra (pre-200 BC)
@@ -6,56 +6,61 @@
 
 
 # check whether n is even or odd
-# if n is even, returns 0
-# if n is odd, returns 1
-def checkParity(n):
-    return n % 2
+def is_even(n):
+    return n % 2 == 0
 
 # subtract 1 from n
-def subtractOne(n):
+def subtract_one(n):
     return n-1
 
 # halve n
 def halve(n):
     return n/2
 
-# make a sequence of 0's and 2's
-def pingalaSequencer(n):
-    pingalaSequence = []
-    while(n):
+# Steps
+def pingala_sequencer(n):
+    pingala_sequence = []
+    
+    while(n>-1):
         if(n==0):
-            print("N is 0; record 0")
-            pingalaSequence.append(0)
+            print("Goose egg")
             break
-        elif(checkParity(n)==0):
-            print("%d is even; record 2 and halve" % n)
+        elif(is_even(n)):
+            print("%d is even, so this step is SQUARE" %n)
+            print("Now we halve %d to get..." % n)
             n = halve(n)
-            pingalaSequence.append(2)
+            pingala_sequence.append("square")
         else:
-            print("%d is odd; record 0 and subtract 1" % n)
-            n = subtractOne(n)
-            pingalaSequence.append(0)
-    pingalaSequence.reverse()
-    return pingalaSequence
+            print("%d is odd, so so this step is DOUBLE" %n)
+            print("Now we subtract 1 from %d to get..." %n)
+            n = subtract_one(n)
+            pingala_sequence.append("double")
+    print("Now we have our steps:")
+    print(pingala_sequence)
+    pingala_sequence.reverse()
+    print("Which we reverse to get:")
+    print(pingala_sequence)
+    return pingala_sequence
 
-# use the sequence to solve 2^n
-def solve2toNthPower(n):
-    pingalaSequence = pingalaSequencer(n)
+def solve_2_to(n):
+    pingala_sequence = pingala_sequencer(n)
     solution = 1
-    for entry in pingalaSequence:
-        if(entry==0):
-            print("multiplying %s by 2 " % solution, end="")
+    print()
+    print("Starting with a value of 1, let's follow the steps:")
+    for entry in pingala_sequence:
+        if(entry=="double"):
+            print("multiplying %d by 2" % solution)
             solution = solution*2
-            print("yielded %s" % solution)
+            print("yielded %d" % solution)
         else:
-            print("squaring %s " % solution, end="")
+            print("squaring %d" % solution)
             solution = solution**2
-            print("yielded %s" % solution)
-    print("2^%s is %s" % (n, solution))
+            print("yielded %d" % solution)
+    print("2^%d is %d" % (n, solution))
     return solution
 
 def main():
     n = int(input("Please enter a number: "))
-    solve2toNthPower(n)
+    solve_2_to(n)
 
 main()
